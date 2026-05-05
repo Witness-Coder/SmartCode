@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+	<link rel="stylesheet" th:href="@{/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/bootstrap-icons-1.11.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/mycss.css}">
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .product-card img {
+            max-height: 200px;
+            width: auto;
+            margin-bottom: 10px;
+        }
+        .btn-custom {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+	<a class="btn btn-dark" href="/" ><i class="bi bi-arrow-left"></i> Back</a>
+    <div class="container">
+		<h2 style="color: rgb(255, 0, 255);" class="text-center">Welcome</h2>
+        <h4 class="text-center my-4">Product List</h4>
+		<div th:each="entry : ${groupedProducts}">
+		        <h2 class="section-title" th:text="${entry.key} + ' Clothes'"></h2> 
+				<div class="row">
+				     <div class="col-md-4 mb-4" th:each="product : ${entry.value}">
+				           <div class="product-card">
+				                 <img th:src="@{'data:image/png;base64,' + ${product.encodedImage}}" alt="Product Image" class="img-fluid">
+				                  <h4 th:text="${product.name}"></h4>
+				                  <p th:text="'Price: $' + ${product.price}"></p>
+				                    
+				            </div>
+				      </div>
+				</div>
+		</div>
+        
+        
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script th:src="@{/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/js/bootstrap.min.js}"></script>
+
+    
+</body>
+</html>

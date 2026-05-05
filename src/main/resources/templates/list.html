@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+	<link rel="stylesheet" th:href="@{/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/css/bootstrap.min.css}">
+			<link rel="stylesheet" th:href="@{/bootstrap-icons-1.11.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css}">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+			<link rel="stylesheet" th:href="@{/css/mycss.css}">
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .product-card img {
+            max-height: 200px;
+            width: auto;
+            margin-bottom: 10px;
+        }
+        .btn-custom {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+	<div Style="color: black;" class="hamburger" onclick="toggleSidebar()">
+		    <i class="bi bi-list"></i> <!-- Bootstrap icon -->
+		</div>
+	<div  class="sidebar" id="sidebar">
+		
+			
+		<!-- Container ya profile image -->
+		<div style="position: relative; width: 50px; height: 50px; cursor: pointer; margin-left: 20px;">
+
+		    <!-- Picha ya mteja (inachukuliwa kutoka DB kwa kutumia ID ya session) -->
+		    <img id="profilePic"
+		         style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;"
+		         th:src="@{'/customer/image/' + ${session.loggedInUserId}}"
+		         alt="Profile"
+
+		         
+		         onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<i class=\'bi bi-person-circle\' style=\'font-size:50px;color:#6c757d;\'></i>');"/>
+
+		    <!-- Icon ya kalamu (edit) -->
+		    <!-- Ikibonyezwa, inafungua file chooser -->
+		    <i class="bi bi-pencil-fill"
+		       style="position: absolute; bottom: -2px; right: -2px;
+		              font-size: 18px; color: white;
+		              background-color: #0d6efd;
+		              border-radius: 50%; padding: 4px; cursor: pointer;"
+		       onclick="document.getElementById('customerImageInput').click()"></i>
+
+		    <!-- Input ya file imefichwa -->
+		    <!-- Inafunguliwa kupitia icon ya kalamu -->
+		    <input type="file"
+		           id="customerImageInput"
+		           accept="image/*"
+		           style="display:none;"
+		           onchange="uploadCustomerProfileImage(this)">
+		</div>
+
+			    
+			
+			<h6 style="color: white;" th:text="${session.loggedInUser}"></h6>
+			<a class="sidebar-a" style="color: rgb(0, 255, 128); width: 148px;"  href="#"><i class="bi bi-house me-2 ">Dashboard </i></a>
+			
+			
+			<a class="sidebar-a" href="/logout" ><i class="bi bi-box-arrow-left"></i> Logout</a>
+		</div>
+    <div class="container">
+		<h2 style="color: rgb(255, 0, 255);" class="text-center">Welcome, <span th:text="${session.loggedInUser}"></span>!</h2>
+        <h4 class="text-center my-4">Product List</h4>
+		<div th:each="entry : ${groupedProducts}">
+		        <h2 class="section-title" th:text="${entry.key} + ' Clothes'"></h2> 
+				<div class="row">
+				            <div class="col-md-4 mb-4" th:each="product : ${entry.value}">
+								<div class="product-card" >
+								    <img th:if="${product.encodedImage != null}" 
+								         th:src="@{'data:image/png;base64,' + ${product.encodedImage}}" 
+								         alt="Product Image" class="img-fluid" />
+								    <h4 th:text="${product.name}"></h4>
+								    <p th:text="'Price: $' + ${product.price}"></p>
+
+								    <form th:action="@{/add-to-cart}" method="post" onsubmit="return validateSize(this);">
+								        <input type="hidden" name="productId" th:value="${product.id}" />
+								        
+								        <label for="sizeSelect" style="font-weight:bold;">Select Size:</label>
+								        <select name="size" class="form-select" required>
+								            <option value="" disabled selected>Select size</option>
+								            
+								            <!-- Nightdress sizes -->
+								            <option th:if="${product.kind == 'nightdress'}" value="S">Small</option>
+								            <option th:if="${product.kind == 'nightdress'}" value="M">Medium</option>
+								            <option th:if="${product.kind == 'nightdress'}" value="L">Large</option>
+
+								            <!-- Underwear sizes -->
+								            <option th:if="${product.kind == 'underwear'}" value="XS">Extra Small</option>
+								            <option th:if="${product.kind == 'underwear'}" value="S">Small</option>
+								            <option th:if="${product.kind == 'underwear'}" value="M">Medium</option>
+
+								            <!-- Outerwear sizes -->
+								            <option th:if="${product.kind == 'outerwear'}" value="M">Medium</option>
+								            <option th:if="${product.kind == 'outerwear'}" value="L">Large</option>
+								            <option th:if="${product.kind == 'outerwear'}" value="XL">Extra Large</option>
+
+								            <!-- Seasonal Clothes sizes -->
+								            <option th:if="${product.kind == 'seasonal'}" value="S">Small</option>
+								            <option th:if="${product.kind == 'seasonal'}" value="M">Medium</option>
+								            <option th:if="${product.kind == 'seasonal'}" value="L">Large</option>
+
+								            <!-- Casual Wear sizes -->
+								            <option th:if="${product.kind == 'casual'}" value="S">Small</option>
+								            <option th:if="${product.kind == 'casual'}" value="M">Medium</option>
+								            <option th:if="${product.kind == 'casual'}" value="L">Large</option>
+								            <option th:if="${product.kind == 'casual'}" value="XL">Extra Large</option>
+
+								            <!-- Formal Wear sizes -->
+								            <option th:if="${product.kind == 'formal'}" value="S">Small</option>
+								            <option th:if="${product.kind == 'formal'}" value="M">Medium</option>
+								            <option th:if="${product.kind == 'formal'}" value="L">Large</option>
+								        </select>
+
+								        <button type="submit" class="btn btn-primary btn-custom mt-2">Add to Cart</button>
+								    </form>
+								</div>
+				            </div>
+				 </div>
+	</div>
+        
+        
+    </div>
+	<!-- Popup Modal -->
+	<div id="imagePopup" class="popup">
+	    <span class="close" onclick="closeImagePopup()">&times;</span>
+	    <img class="popup-content" id="popupImage">
+	</div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script th:src="@{/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/smartjs.js}"></script>
+
+    
+</body>
+</html>

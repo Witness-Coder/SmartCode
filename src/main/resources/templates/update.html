@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>smartcode</title>
+		<link rel="stylesheet" th:href="@{/bootstrap-5.3.3-dist/bootstrap-5.3.3-dist/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/bootstrap-icons-1.11.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	</head>
+	<body>
+		<div class="container mt-5">
+			<h2 class="text-center">[[${PageTitle}]]</h2>
+		
+			<form method="post" action="/update" th:object="${productDto}" enctype="multipart/form-data">
+				<input type="hidden" name="id" th:value="${product.id}"/>
+				<div class="mb-3">
+					<label for="name" class="form-label" >Product Name</label><br>
+					<input type="text" id="name" name="name" class="form-control" th:field="${productDto.name}" required>
+				</div>
+				<div class="mb-3">
+					<label style="color: rgb(128, 0, 128);" for="Kind" class="form-label">Kind of Cloth</label>
+					<select style="color: rgb(255, 0, 255);" id="clothing" name="Kind" th:field="${productDto.Kind}" class="form-select" required>
+						<option value="">-Select kind of cloth-</option>
+				    	<option value="nightdress">Nightdress</option>
+				    	<option value="underwear">Underwear</option>
+				    	<option value="outerwear">Outerwear</option>
+				    	<option value="seasonal">Seasonal Clothes</option>
+				    	<option value="casual">Casual Wear</option>
+				    	<option value="formal">Formal Wear</option>
+					</select>
+		   		</div>
+		   		<div class="mb-3">
+			   		<label style="color: rgb(128, 0, 128);" for="Price" class="form-label">Price (Tsh)</label>
+			   		<input style="color: rgb(255, 0, 255);" name="Price" type="number" th:field="${productDto.Price}" class="form-control" placeholder="Enter cloth price" required>
+		   		</div>
+		   
+		   		<div class="mb-3">
+		   	     	<label style="color: rgb(128, 0, 128);" for="imageFile" class="form-label">Cloth Photo</label>
+		   	     	<input style="color: rgb(255, 0, 255);" name="imageFile" type="file"  class="form-control" required>
+		   	  	</div>
+			
+		   		<button type="submit" class="btn btn-primary w-100">
+		   	      	<i class="bi bi-upload"></i>UPDATE
+		   		</button>
+									
+			</form>
+		</div>
+	</body>
+	
+	
+</html>

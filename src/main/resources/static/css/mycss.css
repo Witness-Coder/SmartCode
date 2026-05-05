@@ -1,0 +1,294 @@
+.sidebar {
+        height: 100%;
+        width: 150px;
+        position: fixed;
+        top: 0;
+        left: -150px;
+        background-color: #212529; /* dark like your navbar */
+        padding-top: 60px;
+        transition: 0.3s;
+        z-index: 1050;
+    }
+
+    .sidebar-a {
+        padding: 10px 25px;
+        text-decoration: none;
+        font-size: 12px;
+        color: white;
+        display: block;
+    }
+
+    .sidebar-a:hover {
+        background-color: #343a40;
+    }
+
+    .hamburger {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        font-size: 28px;
+        cursor: pointer;
+        color: white;
+        z-index: 1100;
+    }
+
+    .sidebar-open .sidebar {
+        left: 0;
+    }
+
+    .sidebar-open .main-content {
+        margin-left: 150px;
+    }
+
+    .main-content {
+        transition: margin-left 0.3s;
+    }
+	body.sidebar-open .hamburger {
+	    display: none;
+	}
+	
+	
+	
+	
+	
+	
+	        .product-grid {
+	            display: grid;
+	            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+	            gap: 20px;
+	            padding: 20px;
+	        }
+	        .product {
+	            border: 1px solid #ccc;
+	            padding: 10px;
+	            text-align: center;
+	            border-radius: 10px;
+	            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	        }
+	        
+	        
+	        .buttons {
+	            margin-top: 10px;
+	        }
+	        button {
+	            padding: 5px 10px;
+	            margin: 3px;
+	            border: none;
+	            background-color: #007bff;
+	            color: white;
+	            border-radius: 5px;
+	            cursor: pointer;
+	        }
+	        button:hover {
+	            background-color: #0056b3;
+	        }
+			
+			.logo{
+				width: 300px;
+				height: 300px;
+				border-radius: 100%;
+				border: 5px solid blue;
+				text-align: center;
+				
+				
+			}
+			/* Popup background */
+					.popup {
+					    display: none; 
+					    
+					    margin-left: 400x;
+					    padding-top: 60px;
+					    border-radius: 10px;
+					    width: 400px;
+					    height: 600px;
+					     
+					    background-color:rgb(255, 255, 255);
+					}
+
+					/* Image inside popup */
+					.popup-content {
+					    margin: auto;
+					    display: block;
+					    width: 400px;
+					    height: 400px;
+					    border-radius: 10px;
+					    object-fit: cover;
+					}
+
+					/* Close button */
+					.close {
+					    position: absolute;
+					    top: 15px;
+					    right: 35px;
+					    color: #fff;
+					    font-size: 40px;
+					    font-weight: bold;
+					    cursor: pointer;
+					}
+
+					.close:hover {
+					    color: #ccc;
+					}
+					#imageModal img {
+					    transition: transform 0.3s ease;
+					}
+
+					#imageModal img:hover {
+					    transform: scale(1.05);
+					}
+
+					
+					/* ===== Modal Editing & Full-Size Image Styles (specific page only) ===== */
+
+					/* Editing Modal Overlay */
+					#managerProfileModal {
+					    display: none;
+					    position: fixed;
+					    z-index: 1200; /* juu ya sidebar na hamburger */
+					    left: 0;
+					    top: 0;
+					    
+					    overflow: auto;
+					    background-color: rgba(0,0,0,0.7);
+					    text-align: center;
+					}
+
+					/* Editing Modal Content */
+					#managerProfileModal .modal-content {
+					    position: relative;
+					   
+					    margin: 50px auto;
+					    background: white;
+					    border-radius: 10px;
+					    padding: 20px;
+					}
+
+					/* Close Button */
+					#managerProfileModal .modal-close {
+					    position: absolute;
+					    top: 10px;
+					    right: 10px;
+					    font-size: 25px;
+					    font-weight: bold;
+					    cursor: pointer;
+					}
+
+					/* Profile Image in Editing Modal */
+					#managerProfileModal .profile-image-container {
+					    position: relative;
+					    width: 200px;
+					    height: 200px;
+					    margin: 0 auto;
+					}
+					#managerProfileModal .profile-img-rounded {
+					    width: 200px;
+					    height: 200px;
+					    border-radius: 50%;
+					    object-fit: cover;
+					    cursor: pointer;
+					}
+					#managerProfileModal .camera-icon {
+					    position: absolute;
+					    bottom: 10px;
+					    right: 0;
+					    font-size: 22px;
+					    color: rgb(255, 255, 255);
+					    background-color: rgb(0, 0, 0);
+					    border-radius: 50%;
+					    padding: 5px;
+					    cursor: pointer;
+					}
+
+					/* Name Input & Save Button */
+					#managerProfileModal .name-input {
+					    width: 80%;
+					    margin-top: 10px;
+					    font-size: 16px;
+					    padding: 5px;
+					}
+					#managerProfileModal .save-btn {
+					    margin-top: 15px;
+					    padding: 5px 15px;
+					    background-color: #0d6efd;
+					    color: white;
+					    border: none;
+					    border-radius: 5px;
+					    cursor: pointer;
+					}
+
+					/* Full-Size Modal Overlay */
+					#fullSizeProfileModal {
+					    display: none;
+					    position: fixed;
+					    z-index: 1250; /* juu zaidi ya editing modal */
+					    left: 0;
+					    top: 0;
+					    width: 100%;
+					    height: 100%;
+					    overflow: auto;
+					    background-color: rgba(0,0,0,0.85);
+					    text-align: center;
+					}
+
+					/* Full-Size Modal Content */
+					#fullSizeProfileModal .fullsize-content {
+					    position: relative;
+					    width: 80%;
+					    max-width: 500px;
+					    margin: 50px auto;
+					}
+
+					/* Close Button */
+					#fullSizeProfileModal .fullsize-close {
+					    position: absolute;
+					    top: 10px;
+					    right: 10px;
+					    font-size: 25px;
+					    font-weight: bold;
+					    cursor: pointer;
+					}
+
+					/* Full-Size Image */
+					#fullSizeProfileModal .fullsize-image-container {
+					    position: relative;
+					    width: 100%;
+					    height: auto;
+					}
+					#fullSizeProfileModal .fullsize-img {
+					    width: 100%;
+					    height: auto;
+					    object-fit: contain;
+					    cursor: pointer;
+					    border-radius: 8px;
+					}
+					#fullSizeProfileModal .fullsize-camera-icon {
+					    position: absolute;
+					    top: 10px;
+					    right: 10px;
+					    font-size: 24px;
+					    color: white;
+					    background-color: #0d6efd;
+					    border-radius: 50%;
+					    padding: 5px;
+					    cursor: pointer;
+					}
+					.name-display {
+					    margin: 12px auto 20px;
+					    font-size: 30px;
+					    font-weight: 600;
+					    color: rgb(255, 255, 255);
+					    cursor: pointer;
+					    text-align: center;
+					}
+
+					.name-display:hover {
+					    color: #e91e63;
+					    text-decoration: underline;
+					}
+					#modalManagerPic {
+					    width: 200px;
+					    height: 200px;
+					    border-radius: 50%;
+					    object-fit: cover;
+					    border: 3px solid rgb(0, 0, 0);
+					}
